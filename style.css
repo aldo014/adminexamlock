@@ -1,0 +1,412 @@
+:root{--g:#79c7a5;--gs:#e3f4ec;--ink:#1f2a37;--mut:#5f6b76;--bd:#d5ddd8;--bg:#e4eae6;--field:#f3f6f4;--side:#d9efe3;--side-bd:#bfdccd;--red:#d64545;--h:40px}
+*{box-sizing:border-box;margin:0}
+body{font:14px/1.45 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg)}
+button,input,select{font:inherit;color:inherit}
+.hidden{display:none!important}
+.mut{color:var(--mut)}
+.err{color:var(--red);min-height:20px;font-size:13px}
+
+/* login */
+#login{display:grid;grid-template-columns:1fr 1fr;min-height:100vh;background:#fff}
+.hero{background:var(--g) repeating-radial-gradient(circle at 75% 40%,transparent 0 58px,rgba(255,255,255,.3) 58px 59px);color:#fff;padding:32px 48px;display:flex;flex-direction:column;justify-content:space-between}
+.hero h2{font-size:40px;line-height:1.15;max-width:430px}
+.hero .logo{background:#fff;color:var(--g)}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px}
+.logo{width:40px;height:40px;border-radius:12px;background:var(--g);display:grid;place-items:center;font-size:17px;overflow:hidden;flex:none}
+.logo img{width:100%;height:100%;object-fit:contain;display:block}
+.form{margin:auto;width:min(360px,84%)}
+.form h1{font-size:26px;margin-bottom:6px}
+.form p.mut{margin-bottom:22px}
+
+label{display:grid;gap:5px;font-weight:600;margin-bottom:14px}
+input,select{border:1px solid var(--bd);background:var(--field);border-radius:10px;padding:10px 12px;width:100%}
+input:focus,select:focus{outline:2px solid var(--gs);border-color:var(--g)}
+.btn{border:1px solid var(--g);color:#2f7f5a;background:#fff;border-radius:10px;padding:0 16px;min-height:var(--h);display:inline-flex;align-items:center;justify-content:center;gap:6px;cursor:pointer;font-weight:600;white-space:nowrap}
+.btn:hover{background:var(--gs)}
+.btn.p{background:var(--g);color:#fff;border-color:var(--g)}
+.btn.p:hover{background:#6bbb98}
+.btn.ibtn{width:var(--h);padding:0}
+.btn.dng{background:#d64545;border-color:#d64545;color:#fff}
+.btn.dng:hover{background:#c23a3a}
+.btn.dng:disabled{background:#d64545;opacity:.45;cursor:not-allowed}
+td .btn{min-height:32px;padding:0 12px;font-size:13px}
+.ib{display:inline-grid;place-items:center;width:34px;height:34px;border:0;border-radius:9px;cursor:pointer;margin-left:6px;vertical-align:middle;transition:background .15s}
+.ib.e{background:#e3edfd;color:#1d4fd8}.ib.e:hover{background:#cfdffb}
+.ib.w{background:#fdf0d5;color:#8a5a06}.ib.w:hover{background:#f9e3b4}
+.ib.d{background:#fde8e8;color:#c0392b}.ib.d:hover{background:#fbd0d0}
+th.cb,td.cb{width:44px;padding-right:0;text-align:center}
+th.cb input,td.cb input{width:16px;height:16px;padding:0;margin:0;cursor:pointer;accent-color:#4fae86;vertical-align:middle}
+.ib.q{background:var(--gs);color:#2f7f5a}.ib.q:hover{background:#cfeadb}
+.kodeu{display:grid;place-items:center;gap:2px;margin:12px 0 4px;padding:10px;border:1px dashed var(--g);border-radius:12px;background:var(--field)}
+.kodeu b{font-size:24px;letter-spacing:.08em;font-family:ui-monospace,monospace;color:var(--ink)}
+td:last-child .ib:first-child{margin-left:0}
+.btn.wide{width:100%}
+.btn:disabled{opacity:.6;cursor:wait}
+a.btn{text-decoration:none}
+.tabs{display:flex;gap:6px}
+.tabs a{padding:7px 16px;border-radius:9px;color:var(--mut);text-decoration:none;font-weight:600}
+.tabs a.on{background:var(--gs);color:var(--ink)}
+.lnk{color:var(--ink);font-weight:700;text-decoration:none}
+.lnk:hover{color:#3e9b72}
+
+/* app layout */
+#app{display:grid;grid-template-columns:248px 1fr;min-height:100vh}
+aside{background:var(--side);border-right:1px solid var(--side-bd);position:sticky;top:0;height:100vh;overflow-y:auto}
+aside .brand{height:64px;padding:0 22px;border-bottom:1px solid var(--side-bd)}
+nav{display:grid;gap:4px;padding:14px 12px}
+nav a{padding:10px 14px;border-radius:10px;border-left:3px solid transparent;color:#3d5a4c;text-decoration:none;font-weight:500}
+nav a:hover{background:rgba(255,255,255,.55)}
+nav a.on{background:#fff;border-left-color:#4fae86;color:var(--ink);font-weight:600;box-shadow:0 1px 3px rgba(40,90,65,.12)}
+nav .gh{display:flex;align-items:center;justify-content:space-between;width:100%;padding:10px 14px;border:0;border-left:3px solid transparent;border-radius:10px;background:none;color:#3d5a4c;font-weight:500;text-align:left;cursor:pointer}
+nav .gh:hover{background:rgba(255,255,255,.55)}
+nav .grp.has-on .gh{color:var(--ink);font-weight:600}
+nav .chev{font-size:18px;line-height:1;transition:transform .15s}
+nav .grp.open .chev{transform:rotate(90deg)}
+nav .sub{display:none;margin:2px 0 4px 18px;padding-left:8px;border-left:1px solid var(--side-bd);gap:2px}
+nav .grp.open .sub{display:grid}
+nav .sub a{padding:8px 12px;font-size:13.5px}
+header{display:flex;justify-content:space-between;align-items:center;gap:12px;background:#fff;border-bottom:1px solid var(--bd);height:64px;padding:0 28px}
+.ttl{font-weight:700;font-size:16px}
+.hr{display:flex;align-items:center;gap:10px}
+.hr b{font-size:14px}
+#view{padding:22px 28px;display:grid;gap:20px}
+
+/* components */
+.card{background:#fff;border:1px solid var(--bd);border-radius:14px;overflow:hidden}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.stat{padding:18px 22px;color:var(--mut)}
+.stat b{display:block;font-size:28px;color:var(--ink);margin-top:6px}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:6px}
+.two{display:grid;grid-template-columns:1fr 340px;gap:20px;align-items:stretch}
+.ch{display:flex;align-items:center;gap:12px;padding:16px 22px;border-bottom:1px solid var(--bd);flex-wrap:wrap}
+.ch .sp{flex:1}
+.ch select,.ch input{width:auto;min-width:130px;height:var(--h)}
+.live{color:#3e9b72;font-size:12px;font-weight:600}
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+th{background:var(--field);color:var(--mut);font-size:11px;letter-spacing:.04em;text-transform:uppercase;text-align:left;padding:10px 16px;white-space:nowrap}
+td{padding:10px 16px;border-top:1px solid #eef0f2;white-space:nowrap}
+tr:hover td{background:#fafcfb}
+.nm{display:flex;align-items:center;gap:10px}
+.av{width:32px;height:32px;border-radius:50%;background:var(--gs);color:#3e9b72;display:grid;place-items:center;font-size:11px;font-weight:700;flex:none}
+.pill{display:inline-block;padding:2px 10px;border-radius:99px;font-size:12px;font-weight:600;background:#eef0f2;color:var(--mut)}
+.pill.ok{background:var(--gs);color:#3e9b72}
+.pill.warn{background:#fdf0d5;color:#a8690c}
+.pill.info{background:#e3effc;color:#2b6cb0}
+.pill.bad{background:#fde8e8;color:#c0392b}
+.ri{display:flex;justify-content:space-between;gap:10px;padding:12px 22px;border-top:1px solid #eef0f2}
+.ri:first-child{border-top:0}
+.ri .pill{margin-top:4px}
+.ico{border:0;background:none;cursor:pointer;color:var(--mut);font-size:16px;margin-left:6px}
+
+.qrbox{display:grid;place-items:center;margin:14px 0}
+.qrbox canvas{width:240px;height:240px;border:1px solid var(--bd);border-radius:12px}
+.mono{font-family:ui-monospace,monospace;font-size:12px;word-break:break-all;text-align:center}
+
+/* dialog */
+dialog{margin:auto;border:0;border-radius:16px;padding:24px;width:min(460px,92vw);max-height:90vh;overflow:auto}
+dialog::backdrop{background:rgba(0,0,0,.35)}
+#dlg2{width:min(420px,92vw)}
+.ck{display:flex;align-items:center;gap:8px;font-weight:600;margin:0;cursor:pointer}
+.ck input{width:auto;padding:0}
+.kp{border:1px solid var(--bd);border-radius:10px;padding:8px 10px;display:grid;gap:8px;margin-bottom:8px;background:var(--field)}
+.chips{display:grid;grid-template-columns:repeat(auto-fill,minmax(46px,1fr));gap:5px}
+.chip{position:relative;display:flex;align-items:center;justify-content:center;margin:0;padding:4px 2px;border:1px solid var(--bd);border-radius:8px;background:#fff;font-size:12px;font-weight:600;cursor:pointer;user-select:none}
+.chip:hover{border-color:var(--g)}
+.chip input{position:absolute;opacity:0;pointer-events:none;width:0;height:0;padding:0;border:0}
+.chip:has(input:checked){background:var(--gs);border-color:var(--g);color:#2f7f5a}
+#dlg2::backdrop{background:rgba(0,0,0,.45)}
+.rs{display:flex;align-items:center;gap:12px}
+.rs h3{margin:0}
+.rs .rc{display:grid;place-items:center;width:36px;height:36px;border-radius:50%;font-size:18px;font-weight:700;flex:none}
+.rs.ok .rc{background:var(--gs);color:#2f7f5a}
+.rs.bad .rc{background:#fde8e8;color:#c0392b}
+/* hanya pop up Tambah/Ubah ujian yang dibuat ringkas */
+dialog.kc{padding:18px 20px;border-radius:14px;max-height:92vh;font-size:13px}
+dialog.kc h3{margin-bottom:2px;font-size:16px}
+dialog.kc label:not(.ck):not(.chip){margin-bottom:10px;gap:4px}
+dialog.kc input:not([type=checkbox]),dialog.kc select{padding:7px 10px;border-radius:8px}
+dialog.kc .btn{min-height:34px;padding:0 14px;font-size:13px}
+dialog.kc .row{margin-top:4px}
+dialog.kc .err{min-height:16px;font-size:12.5px}
+dialog h4{margin:16px 0 6px}
+.row{display:flex;gap:10px;justify-content:flex-end;margin-top:8px}
+.li{display:flex;justify-content:space-between;padding:8px 0;border-top:1px solid #eef0f2}
+
+/* halaman kelas & siswa */
+.ph h2{font-size:22px;margin-bottom:2px}
+.tb{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.tb select,.tb input{width:auto;min-width:170px;height:var(--h);background-color:#fff}
+.tb .sp{flex:1}
+.cg{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:1fr;gap:14px}
+@media(max-width:800px){.cg{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:600px){.cg{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.cc{background:#fff;border:1px solid var(--bd);border-top:4px solid var(--g);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:2px;min-height:112px;cursor:pointer;transition:box-shadow .15s,transform .15s}
+.cc:hover{box-shadow:0 6px 18px rgba(31,42,55,.08);transform:translateY(-1px)}
+.cc b{font-size:18px}.cc span,.cc small{font-size:13px}
+.cc .ca{display:flex;justify-content:flex-end;gap:8px;margin-top:auto;padding-top:12px}
+.cc .ca button{border:0;border-radius:9px;width:34px;height:34px;display:inline-grid;place-items:center;cursor:pointer}
+.cc .ca button svg{width:18px;height:18px}
+.cc .ca .e{background:#e3edfd;color:#1d4fd8}.cc .ca .e:hover{background:#d3e3fb}
+.cc .ca .d{background:#fde8e8;color:#c0392b}.cc .ca .d:hover{background:#fbd5d5}
+th.srt{cursor:pointer;user-select:none}
+th.srt span{font-size:10px;margin-left:2px}
+.two2{display:grid;grid-template-columns:1fr 340px;gap:20px;align-items:stretch}
+.pd{padding:22px 24px}
+.sec{font-size:16px;padding-bottom:10px;margin-bottom:16px;border-bottom:2px solid var(--gs)}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.dz{display:grid;gap:4px;border:2px dashed #cfe6db;border-radius:12px;padding:16px 18px}
+.okm{color:#3e9b72;min-height:20px;font-size:13px;font-weight:600}
+.steps{padding-left:18px;display:grid;gap:8px;color:var(--mut);margin-bottom:14px}
+.tip{background:var(--gs);border-left:3px solid var(--g);border-radius:8px;padding:10px 12px;font-size:13px;color:#2f6f55}
+
+@media(max-width:900px){
+  #login{grid-template-columns:1fr}.hero{display:none}
+  #app{grid-template-columns:1fr}aside{border-right:0;position:static;height:auto}nav{display:flex;overflow-x:auto}nav a{white-space:nowrap}nav .grp,nav .sub{display:contents}nav .gh{display:none}nav .sub a{font-size:inherit;padding:10px 14px}
+  .stats{grid-template-columns:repeat(2,1fr)!important}.two,.two2{grid-template-columns:1fr}.g2{grid-template-columns:1fr}
+  header,#view{padding-left:16px;padding-right:16px}
+}
+.ico.del:hover{color:var(--red)}
+
+.ch.mf{flex-wrap:nowrap;background:#fafbfa}
+.ch.mf input{flex:1 1 200px;min-width:180px}
+.ch.mf select{flex:0 0 auto}
+.ch.mf select[data-exsel]{flex:0 1 200px;min-width:120px}
+@media (max-width:1200px){.ch.mf{flex-wrap:wrap}.ch.mf input{flex-basis:100%}.ch.mf select,.ch.mf select[data-exsel]{flex:1 1 140px;max-width:none}}
+.mt th,.mt td{padding:10px 10px}.mt th:first-child,.mt td:first-child{padding-left:20px}.mt th:last-child,.mt td:last-child{padding-right:20px}
+.mt td:first-child{white-space:normal;min-width:180px}.mt .btn{min-height:34px;padding:0 12px}
+.kl{white-space:normal;min-width:200px;max-width:320px;line-height:1.5;word-break:normal}
+
+/* ---- Soal ujian ---- */
+.sq{margin-bottom:0}
+.sqh{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.sqh select{width:auto;min-width:150px;height:var(--h)}
+.sq textarea{width:100%;border:1px solid var(--bd);background:var(--field);border-radius:10px;padding:10px 12px;font:inherit;resize:vertical}
+.ops{display:grid;gap:8px;margin-top:10px}
+.op{display:flex;align-items:center;gap:10px;margin:0}
+.op input[type=radio]{width:auto;flex:none;accent-color:#3e9b72;transform:scale(1.2)}
+.op input:not([type=radio]){flex:1;height:var(--h)}
+.ib[disabled],.btn[disabled]{opacity:.45;cursor:not-allowed}
+.sm{border-radius:12px;padding:12px 16px;margin-bottom:14px;background:#eef5f1;color:#2f5f48;line-height:1.5}
+.sm.ok{background:var(--gs);color:#2f7f5a}.sm.bad{background:#fde8e8;color:#c0392b}
+.sm a{color:inherit;font-weight:600}
+.tb .ck input[type=checkbox],.sqh .ck input[type=checkbox]{width:18px;height:18px;flex:none;accent-color:#3e9b72}
+.tb .ck{gap:8px;white-space:nowrap}
+.sqh input[type=number]{height:var(--h);padding:0 10px;border:1px solid var(--bd);background:var(--field);border-radius:10px}
+.tb .ck{width:auto;flex:none;justify-content:flex-start}
+
+/* ---------- ikon tombol: salin berhasil ---------- */
+.ib.c{background:#eef2f0;color:#4a5a53}.ib.c:hover{background:#dfe7e3}
+.ib.c.ok{background:var(--gs);color:#2f7f5a}
+.ib.c.d{background:#fde8e8;color:#c0392b}
+.ib:focus-visible,.btn:focus-visible{outline:2px solid var(--g);outline-offset:2px}
+
+/* ---------- spinner di tombol (warna mengikuti teks tombol) ---------- */
+@keyframes ldspin{to{transform:rotate(360deg)}}
+.ld::before{content:"";flex:none;width:14px;height:14px;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;animation:ldspin .7s linear infinite}
+.btn.ld,.btn.ld:disabled{opacity:.9;cursor:progress}
+.btn.ld:hover{background:inherit}
+.btn.p.ld:hover{background:var(--g)}
+.btn.dng.ld,.btn.dng.ld:disabled{opacity:.9;cursor:progress}
+.ib.ld,.ib.ld[disabled]{opacity:.9;cursor:progress}
+.ib.ld > svg{display:none}
+.ib.ld::before{width:16px;height:16px}
+@media (prefers-reduced-motion:reduce){.ld::before{animation-duration:1.8s}}
+
+/* ---------- dropdown (select) ---------- */
+select{
+  appearance:none;-webkit-appearance:none;cursor:pointer;text-overflow:ellipsis;
+  font-weight:500;
+  padding-right:38px;
+  background-color:var(--field);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%235f6b76' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 12px center;background-size:16px;
+  transition:border-color .15s,background-color .15s,box-shadow .15s;
+}
+select:hover:not(:disabled){border-color:#aebdb5;background-color:#eef3f0}
+.tb select:hover:not(:disabled){background-color:#f6f9f7}
+select:focus-visible{outline:0;border-color:var(--g);box-shadow:0 0 0 3px var(--gs)}
+select:disabled{opacity:.55;cursor:not-allowed}
+select:invalid{color:var(--mut)}
+select option{color:var(--ink)}
+dialog.kc select{padding-right:34px;background-position:right 10px center}
+
+@supports (appearance:base-select){
+  select,::picker(select){appearance:base-select}
+  select{
+    display:inline-flex;align-items:center;justify-content:space-between;gap:8px;
+    background-image:none;padding-right:12px;white-space:nowrap;overflow:hidden;
+  }
+  select::picker-icon{
+    content:"";flex:none;width:16px;height:16px;transition:transform .18s ease;
+    background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%235f6b76' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") center/contain no-repeat;
+  }
+  select:open::picker-icon{transform:rotate(180deg)}
+  select:open{border-color:var(--g);box-shadow:0 0 0 3px var(--gs)}
+  ::picker(select){
+    box-sizing:border-box;min-width:anchor-size(width);max-height:min(340px,60vh);overflow-y:auto;
+    margin-block:6px;padding:6px;border:1px solid var(--bd);border-radius:12px;background:#fff;
+    box-shadow:0 14px 34px rgba(31,42,55,.18),0 2px 6px rgba(31,42,55,.08);
+    opacity:0;transform:translateY(-4px);
+    transition:opacity .14s ease,transform .14s ease,overlay .14s allow-discrete,display .14s allow-discrete;
+  }
+  ::picker(select):popover-open{opacity:1;transform:none}
+  @starting-style{::picker(select):popover-open{opacity:0;transform:translateY(-4px)}}
+  select option{
+    display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;
+    font-weight:500;cursor:pointer;white-space:nowrap;transition:background-color .1s;
+  }
+  select option:hover,select option:focus-visible{background:var(--gs);outline:0}
+  select option:checked{background:#d6efe3;font-weight:600}
+  select option:disabled{opacity:.5;cursor:not-allowed}
+  select option::checkmark{content:"\2713";order:1;margin-left:auto;padding-left:14px;color:#2f7f5a;font-weight:700}
+}
+
+/* ---------- halaman editor soal: jarak lebih rapat ---------- */
+.sw{display:grid;gap:12px;min-width:0}
+.sw #so-msg:empty{display:none}
+.sw #so-edit{display:grid;gap:12px}
+.ph.phk{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+.ph.phk > div{min-width:0}
+.ph.phk .mut{overflow-wrap:anywhere}
+.ph.phk .btn{flex:none}
+@media (max-width:560px){.ph.phk{flex-wrap:wrap}}
+.sw .sm{margin-bottom:0}
+.sw .card.pd{padding:16px 20px}
+.sw .sqh{margin-bottom:8px}
+.sw .ops{margin-top:8px;gap:6px}
+.ch.mf .btn{flex:none;white-space:nowrap}
+
+/* ---------- bagian (section) di editor soal ---------- */
+.sq.sec{border-left:4px solid var(--g);background:#f4faf7}
+.sq.sec input[data-sk=teks]{height:var(--h)}
+.pill.sec{background:var(--g);color:#fff;font-weight:700}
+
+/* ---------- Jadwal Ujian: pemisah antar ujian lebih jelas ---------- */
+.sch tr.gs td{border-top:2px solid #a9c2b5}
+.sch tr.gs:first-child td{border-top:0}
+.sch tr:not(.gs) td{border-top:1px dashed #dfe7e2}
+.sch tr.g1 td{background:#f3f8f5}
+.sch tr:hover td{background:#e9f4ee}
+.sch tr.gs td:first-child{box-shadow:inset 4px 0 0 var(--g)}
+
+/* ---------- Halaman Judul (halaman pertama Form) ---------- */
+.sq.jud{border-left:4px solid #2f7f5a;background:#fff;box-shadow:0 0 0 1px #cfe5d8 inset}
+.pill.jud{background:#2f7f5a;color:#fff;font-weight:700}
+.sq.jud .jt{font-size:18px;font-weight:700;margin:4px 0 10px;overflow-wrap:anywhere}
+.sq.jud .jin{height:46px;font-size:17px;font-weight:700;margin:2px 0 10px}
+.sq.jud textarea{margin-bottom:0}
+.fkw{margin-top:14px;padding:14px 16px;border:1px dashed #b9d3c4;border-radius:12px;background:#f6faf8}
+.fkh{font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#4a6a5a;margin-bottom:10px}
+.fkg{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.fk{display:grid;gap:6px;font-weight:600;font-size:13.5px}
+.fk i{color:var(--red);font-style:normal}
+.fi{height:var(--h);display:flex;align-items:center;padding:0 12px;border:1px solid var(--bd);border-radius:10px;background:#fff;color:#9aa6a0;font-weight:400;font-size:13.5px;border-bottom:2px solid #cfdad4}
+@media (max-width:640px){.fkg{grid-template-columns:1fr}}
+.fk em{font-style:normal;font-weight:600;font-size:11px;color:#2f7f5a;background:#e3f4ec;border-radius:99px;padding:1px 8px;margin-left:4px}
+.fkx{display:grid;gap:10px;margin-top:14px;padding-top:14px;border-top:1px dashed #b9d3c4}
+.fk.ex{gap:8px}
+.fkr{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.fkr input[data-kf=label]{flex:1 1 220px;min-width:0;height:var(--h)}
+.fkr select{width:auto;flex:0 0 auto;min-width:170px;height:var(--h)}
+.fkr .wj{display:inline-flex;align-items:center;gap:6px;margin:0;font-weight:600;white-space:nowrap;width:auto}
+.fkr .wj input{width:18px;height:18px;accent-color:#3e9b72;margin:0}
+.fk.ex > input[data-kf=opsi]{height:var(--h)}
+
+/* ---------- Hasil Ujian: tabel lebih ringkas ---------- */
+.hs th,.hs td{padding:10px 12px}
+.hs th:first-child,.hs td:first-child{padding-left:18px}
+.hs th:last-child,.hs td:last-child{padding-right:18px}
+.hs .av{width:28px;height:28px;font-size:10px}
+.hs .nm{gap:8px}
+.hs td .pill{white-space:nowrap}
+
+/* Hasil Ujian: toolbar dua baris (filter di atas, aksi di bawah) */
+.ch.hsb{flex-direction:column;align-items:stretch;gap:12px;background:#fafbfa}
+.hsb .hsr:first-child{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr) minmax(0,1fr) minmax(0,1.5fr) auto;gap:12px;align-items:stretch}
+.hsb .hsr select,.hsb .hsr input{width:100%;min-width:0}
+.hsb .hsr:first-child .btn{margin:0;padding:0 30px;white-space:nowrap;min-height:var(--h)}
+.hsb .hsa{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:14px;padding-top:14px;border-top:1px solid var(--bd)}
+.hsb .hsa .btn{flex:none;white-space:nowrap;margin:0}
+.hsb .hsa #hs-pdf{margin-left:auto}
+@media (max-width:1200px){.hsb .hsr:first-child{grid-template-columns:repeat(3,minmax(0,1fr))}.hsb .hsr input{grid-column:span 2}.hsb .hsr:first-child .btn{grid-column:span 1}}
+@media (max-width:640px){.hsb .hsr:first-child{grid-template-columns:1fr}.hsb .hsr input,.hsb .hsr:first-child .btn{grid-column:auto}.hsb .hsa .btn{flex:1 1 calc(50% - 10px)}.hsb .hsa #hs-pdf{margin-left:0}}
+
+/* pop up Cetak PDF */
+.chips.w{grid-template-columns:repeat(auto-fill,minmax(84px,1fr))}
+.chips.w .chip{flex-direction:column;gap:0;padding:5px 4px;line-height:1.2}
+.chips.w .chip small{font-size:10.5px;font-weight:500;color:var(--mut)}
+.chip.off{opacity:.45;cursor:not-allowed;background:#f4f6f5}
+.chip.off:hover{border-color:var(--bd)}
+
+/* gambar pada soal */
+.gbw{margin:8px 0 2px;display:grid;gap:8px}
+.gbw.k{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.gbw .btn{padding:6px 12px}
+.gbi{display:block;max-width:100%;max-height:240px;object-fit:contain;border:1px solid var(--bd);border-radius:10px;background:#fff;justify-self:start}
+.gbi.ph{padding:18px 20px;color:var(--mut);font-size:13px}
+.gba{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.gba .mut{font-size:12.5px;margin-right:auto}
+
+/* Pantau Siswa: baris bisa diklik untuk melihat detail */
+tr[data-d]{cursor:pointer}
+tr[data-d]:hover td{background:rgba(47,133,90,.07)}
+
+/* Log pelanggaran: tabel selalu muat di lebar layar; teks panjang turun ke baris berikutnya */
+.lgt{table-layout:auto}
+.lgt th,.lgt td{padding:10px 12px;white-space:normal;vertical-align:middle}
+.lgt th{white-space:nowrap}
+.lgt td:nth-child(1){min-width:96px;max-width:130px}
+.lgt td:nth-child(2){min-width:140px}
+.lgt td:nth-child(3){white-space:nowrap}
+.lgt td.ket{min-width:200px;max-width:340px;line-height:1.45}
+.lgt td.ket small{display:block;margin-top:2px;color:var(--mut);font-size:12px}
+.lgt .nm{gap:8px}
+@media (max-width:1100px){.lgt th:nth-child(3),.lgt td:nth-child(3){display:none}}
+
+/* Tabel Pantau Siswa & Hasil Ujian: selalu muat di lebar layar, teks panjang turun ke bawah */
+.mt th,.mt td,.hs th,.hs td{padding:10px 12px}
+.mt th:first-child,.mt td:first-child,.hs th:first-child,.hs td:first-child{padding-left:18px}
+.mt th:last-child,.mt td:last-child{padding-right:18px}
+.mt th,.hs th{white-space:normal;line-height:1.25;vertical-align:bottom}
+.mt td:first-child,.hs td:first-child{white-space:normal;min-width:150px}
+.mt td.kl,.hs td.kl{white-space:normal}
+.mt .nm,.hs .nm{gap:8px}
+.mt .av,.hs .av{width:28px;height:28px;font-size:10px}
+.mt td .pill,.hs td .pill{white-space:nowrap}
+.hs td:nth-last-child(1){white-space:normal}
+
+/* Hasil Ujian: tabel lebih lega (menggantikan aturan rapat di atas khusus tabel ini) */
+.hs{min-width:780px;width:100%}
+.hs th,.hs td{padding:14px 14px}
+.hs th:first-child,.hs td:first-child{padding-left:22px;min-width:210px}
+.hs th:last-child,.hs td:last-child{padding-right:20px;width:1%}
+.hs th{white-space:nowrap;vertical-align:middle;padding-top:16px;padding-bottom:16px}
+.hs td{vertical-align:middle;white-space:nowrap}
+.hs td:first-child{white-space:normal}
+.hs th:nth-last-child(n+3):nth-last-child(-n+6),.hs td:nth-last-child(n+3):nth-last-child(-n+6){padding-left:16px;padding-right:16px}
+.hs td:nth-last-child(5),.hs td:nth-last-child(4){width:84px}
+.hs .nm{gap:12px}
+.hs .av{width:32px;height:32px;font-size:11px}
+
+/* Dialog jadwal: pilihan mode tanggal (radio) tidak ikut gaya kolom isian */
+dialog.kc .ck input[type=radio]{width:auto;padding:0;margin:0;border-radius:50%}
+
+/* Dialog Jadwal: kartu per kelas yang lebih rapi */
+.tm{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.tm.b3{grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) minmax(0,1fr)}
+dialog.kc .tm label:not(.ck):not(.chip),dialog.kc .kj label:not(.ck):not(.chip){margin:0;font-size:12px;font-weight:600;color:var(--mut)}
+dialog.kc #common{margin-bottom:10px}
+dialog.kc .sh{font-weight:600;margin:2px 0 6px;font-size:13px}
+dialog.kc .kj{gap:8px;padding:10px 12px;margin-bottom:8px}
+.kj .kh{display:flex;align-items:center}
+.kj .kh b{background:var(--gs);color:#2f7f5a;border-radius:999px;padding:1px 12px;font-size:13px}
+.kj .pws{width:100%}
+.kj .pwc{display:flex;flex-wrap:wrap;gap:5px}
+dialog.kc .hint{margin:0 0 8px;font-size:12px;color:var(--mut);line-height:1.4}
+
+/* Daftar ujian: judul panjang dan banyak kelas dibungkus supaya tabel muat tanpa scroll samping */
+#exl td{vertical-align:middle}
+#exl td:nth-child(2){white-space:normal;min-width:200px;line-height:1.35}
+#exl td.kl{white-space:normal;min-width:130px;max-width:220px;line-height:1.35}
+#exl td:nth-child(4),#exl td:nth-child(5),#exl td:last-child{white-space:nowrap}
+#exl td{padding-left:12px;padding-right:12px}
