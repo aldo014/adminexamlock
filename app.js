@@ -509,7 +509,7 @@ const SH = {
     </div>`,
   soal: () => `<div class="sw">
     <div class="ph phk"><div><h2 id="so-t">Soal Ujian</h2><p class="mut" id="so-s"></p></div><a class="btn" href="#exams">← Kembali</a></div>
-    <div class="tb"><label class="ck" style="display:inline-flex;width:auto;flex:none;gap:8px;margin:0;align-items:center"><input type="checkbox" id="so-acak" style="width:18px;min-width:0;height:18px;flex:none;margin:0"><span style="margin:0">Acak urutan soal</span></label><label class="ck" style="display:inline-flex;width:auto;flex:none;gap:8px;margin:0 0 0 18px;align-items:center" title="Tiap siswa melihat urutan pilihan jawaban yang berbeda di Google Form. Soal Benar/Salah tidak diacak. Perlu Forms API terpasang di Google Script."><input type="checkbox" id="so-acakopsi" style="width:18px;min-width:0;height:18px;flex:none;margin:0"><span style="margin:0">Acak urutan pilihan jawaban</span></label><span class="sp"></span><span id="so-btns" class="tb"></span></div>
+    <div class="tb"><label class="ck" style="display:inline-flex;width:auto;flex:none;gap:8px;margin:0;align-items:center"><input type="checkbox" id="so-acak" style="width:18px;min-width:0;height:18px;flex:none;margin:0"><span style="margin:0">Acak urutan soal</span></label><span class="sp"></span><span id="so-btns" class="tb"></span></div>
     <div id="so-msg"></div>
     <div id="so-edit"></div>
     <div class="tb"><button class="btn" data-sq="add">+ Tambah Soal</button><button class="btn" data-sq="addb" title="Bagian baru di Google Form: siswa harus menekan Berikutnya untuk melanjutkan">+ Tambah Bagian</button><button class="btn" data-sq="imp">Impor dari Excel/CSV</button><span class="sp"></span><span class="mut" id="so-sum"></span></div></div>`,
@@ -521,7 +521,7 @@ const SH = {
     </div>`,
   bankEdit: () => `<div class="sw">
     <div class="ph phk"><div><h2 id="so-t">Bank Soal</h2><p class="mut" id="so-s"></p></div><a class="btn" href="#bank">← Kembali</a></div>
-    <div class="tb"><label class="ck" style="display:inline-flex;width:auto;flex:none;gap:8px;margin:0;align-items:center"><input type="checkbox" id="so-acak" style="width:18px;min-width:0;height:18px;flex:none;margin:0"><span style="margin:0">Acak urutan soal</span></label><label class="ck" style="display:inline-flex;width:auto;flex:none;gap:8px;margin:0 0 0 18px;align-items:center" title="Tiap siswa melihat urutan pilihan jawaban yang berbeda di Google Form. Soal Benar/Salah tidak diacak. Perlu Forms API terpasang di Google Script."><input type="checkbox" id="so-acakopsi" style="width:18px;min-width:0;height:18px;flex:none;margin:0"><span style="margin:0">Acak urutan pilihan jawaban</span></label><span class="sp"></span><span id="so-btns" class="tb"></span></div>
+    <div class="tb"><label class="ck" style="display:inline-flex;width:auto;flex:none;gap:8px;margin:0;align-items:center"><input type="checkbox" id="so-acak" style="width:18px;min-width:0;height:18px;flex:none;margin:0"><span style="margin:0">Acak urutan soal</span></label><span class="sp"></span><span id="so-btns" class="tb"></span></div>
     <div id="so-msg"></div>
     <div id="so-edit"></div>
     <div class="tb"><button class="btn" data-sq="add">+ Tambah Soal</button><button class="btn" data-sq="addb" title="Bagian baru di Google Form: siswa harus menekan Berikutnya untuk melanjutkan">+ Tambah Bagian</button><button class="btn" data-sq="imp">Impor dari Excel/CSV</button><span class="sp"></span><span class="mut" id="so-sum"></span></div></div>`,
@@ -2106,7 +2106,6 @@ function soalInput(e) {
 function soalChange(e) {
   const t = e.target;
   if (t.id === "so-acak") { SO.acak = t.checked; return true; }
-  if (t.id === "so-acakopsi") { SO.acakOpsi = t.checked; return true; }
   if (t.dataset.kf) {
     const c = SO.items[0]?.kolom?.[+t.closest(".fk.ex").dataset.ki];
     if (c) { SO.dirty = true; if (t.dataset.kf === "wajib") c.wajib = t.checked; else if (t.dataset.kf === "tipe") { c.tipe = t.value; renderSoal(); } else c[t.dataset.kf] = t.value; }
@@ -2295,7 +2294,6 @@ async function soalMuat(auto) {
       }
       SO.items = denganJudul(r.soal.map((q) => (q.tipe === "pg" ? { ...q, kunci: q.kunci === null ? null : q.kunci } : q)), r.deskripsi || "", r.kolom || []);
       SO.info = r; SO.acak = r.acak; SO.dirty = false; const ak = $("#so-acak"); if (ak) ak.checked = !!r.acak;
-      acakOpsiMuat(r);
       renderSoal();
       soalMsg(`Dimuat <b>${hitungSoal(r.soal)}</b> soal dalam <b>${r.soal.filter((q) => q.tipe === "bagian").length + 1}</b> bagian (termasuk halaman judul) dari Google Form. Jawaban masuk: <b id="so-jml">...</b>.${gsWaktu(r)}` + (r.adaLain ? " Ada soal jenis lain yang hanya bisa diubah di Google Form." : ""), "ok");
       bankCatat(ex);
@@ -2318,28 +2316,6 @@ function bankCatat(ex) {
   api("admin_bank_simpan", { id: Number(ex.id), soal: n, jumlah_soal: hitungSoal(n) }).then(() => { bankSoalSet(ex.id, n); muatMaster(["bank"]); }).catch((e) => console.error("bank", e));
 }
 
-// Acak urutan pilihan jawaban (tiap siswa melihat urutan yang berbeda) memakai pengaturan "Acak urutan opsi" milik Google Form,
-// dinyalakan lewat Forms API di Google Script. r.acakOpsi: true/false dari Form, atau null bila Forms API belum terpasang.
-function acakOpsiMuat(r) {
-  SO.acakOpsi = !!r.acakOpsi;
-  SO.acakOpsiAwal = r.acakOpsi === undefined ? null : r.acakOpsi;
-  const ao = $("#so-acakopsi");
-  if (ao) ao.checked = !!r.acakOpsi;
-}
-// Mengembalikan "" bila berhasil, atau kalimat peringatan bila gagal. Tidak melempar galat supaya Form yang sudah jadi
-// tidak dianggap gagal hanya karena fitur ini.
-async function acakOpsiTerap(formId, acak) {
-  try {
-    await gs("acakopsi", { formId, acak });
-    SO.acakOpsiAwal = acak;
-    return "";
-  } catch (er) {
-    console.warn("acakopsi", er);
-    if (er.kode === "AKSI") return "Google Script belum diperbarui, jadi urutan pilihan jawaban belum bisa diacak. Pasang Code.gs terbaru lalu Deploy versi baru.";
-    return "Urutan pilihan jawaban belum diacak. " + er.message;
-  }
-}
-
 async function soalBuat() {
   const err = soalCek();
   if (err) return hasil(false, "Soal belum lengkap", esc(err));
@@ -2360,8 +2336,6 @@ async function soalBuat() {
     await soalJalan(async () => {
       try {
         const r = await gsBuatBertahap(st, judul, soalOut(), !!$("#so-acak")?.checked, editors, (i, n) => { btn.textContent = `Membuat... (${Math.min(i + 1, n)}/${n})`; });
-        let catatan = "";
-        if ($("#so-acakopsi")?.checked) { btn.textContent = "Mengacak pilihan..."; catatan = await acakOpsiTerap(r.formId, true); }
         btn.textContent = "Menyimpan...";
         const id = await soalPasang(ex, r);
         SO.info = r; SO.msgSet = true;
@@ -2369,7 +2343,6 @@ async function soalBuat() {
         if (bank) {
           const link = r.linkPendek || r.publishedUrl;
           dlg(`<h3>Form berhasil dibuat</h3>
-            ${catatan ? `<p class="err" style="margin:6px 0 10px">${esc(catatan)}</p>` : ""}
             <p class="mut" style="margin:6px 0 10px">Link Form untuk siswa:</p>
             <div style="display:flex;gap:8px"><input id="bklink" readonly value="${esc(link)}" style="flex:1"><button class="btn p" id="bkcp">Salin</button></div>
             <p class="mut" style="font-size:13px;margin:10px 0 14px">Link ini sudah tersimpan di Bank Soal. Saat menambah ujian, cukup pilih soal ini dari daftar. <a href="${esc(r.editUrl)}" target="_blank" rel="noopener">Buka di Google Form ↗</a></p>
@@ -2378,8 +2351,8 @@ async function soalBuat() {
           $("#bkcp").onclick = async (ev) => { try { await navigator.clipboard.writeText(link); ev.target.textContent = "Tersalin"; } catch { $("#bklink").select(); } };
           return;
         }
-        soalMsg(`Form berhasil dibuat dan link sudah terpasang ke ujian ini. <a href="${esc(r.editUrl)}" target="_blank" rel="noopener">Buka di Google Form ↗</a>` + (catatan ? ` <b>Catatan:</b> ${esc(catatan)}` : ""), catatan ? "bad" : "ok");
-        await hasil(true, "Form dibuat", "Form Google berhasil dibuat dan link-nya sudah terpasang ke ujian ini." + (catatan ? `<br><br>${esc(catatan)}` : ""));
+        soalMsg(`Form berhasil dibuat dan link sudah terpasang ke ujian ini. <a href="${esc(r.editUrl)}" target="_blank" rel="noopener">Buka di Google Form ↗</a>`, "ok");
+        await hasil(true, "Form dibuat", "Form Google berhasil dibuat dan link-nya sudah terpasang ke ujian ini.");
       } catch (er) {
         console.error(er);
         $("#fe").textContent = er.message;
@@ -2440,16 +2413,12 @@ async function soalSimpan(paksa) {
     try {
       const r = await gs("simpan", { formId: ex.form_id, soal: soalOut(), acak: !!$("#so-acak")?.checked, paksa: !!paksa });
       SO.info = r;
-      // Menulis ulang soal mengembalikan urutan pilihan ke default, jadi pengaturan diterapkan lagi setelah simpan.
-      // Bila dimatikan, hanya dikirim bila Form tadinya memang diacak.
-      const acakOpsi = !!$("#so-acakopsi")?.checked;
-      const catatan = acakOpsi || SO.acakOpsiAwal ? await acakOpsiTerap(ex.form_id, acakOpsi) : "";
-      soalMsg(`Tersimpan ke Google Form (${hitungSoal(SO.items)} soal).${gsWaktu(r)}` + (catatan ? ` <b>Catatan:</b> ${esc(catatan)}` : ""), catatan ? "bad" : "ok");
+      soalMsg(`Tersimpan ke Google Form (${hitungSoal(SO.items)} soal).${gsWaktu(r)}`, "ok");
       if (ex.form_id) { entriCoba.delete(ex.form_id); isianSinkron(ex.form_id).catch((e) => console.warn("isian", e)); } // kode kolom Kelas bisa berubah setelah soal disimpan
       if (page() === "bank" && ex.id) {
         const salinan = soalSalinan();
         api("admin_bank_simpan", { id: Number(ex.id), soal: salinan, jumlah_soal: hitungSoal(SO.items), ...(bankJudul() ? { judul_ujian: bankJudul() } : {}) })
-          .then(async () => { bankSoalSet(ex.id, salinan); await muatMaster(["bank"]); if (page() === "bank" && !catatan) bankKeDaftar("Soal tersimpan ke Google Form dan Bank Soal."); }).catch((e) => console.error("bank", e));
+          .then(async () => { bankSoalSet(ex.id, salinan); await muatMaster(["bank"]); if (page() === "bank") bankKeDaftar("Soal tersimpan ke Google Form dan Bank Soal."); }).catch((e) => console.error("bank", e));
       }
     } catch (er) {
       if (er.kode === "ADA_JAWABAN") {
@@ -2506,7 +2475,6 @@ async function soalHubung() {
         const id = await soalPasang(ex, r);
         if (page() === "bank" && soalId() === "baru") { bankKeDaftar("Form terhubung dan tersimpan di Bank Soal."); return; }
         SO.items = denganJudul(r.soal, r.deskripsi || "", r.kolom || []); SO.info = r; SO.msgSet = true; SO.acak = r.acak; const ak = $("#so-acak"); if (ak) ak.checked = !!r.acak;
-        acakOpsiMuat(r);
         renderSoal();
         soalMsg(`Terhubung ke Form <b>${esc(r.judul)}</b>: ${hitungSoal(r.soal)} soal dalam ${r.soal.filter((q) => q.tipe === "bagian").length + 1} bagian (termasuk halaman judul) dimuat, <b id="so-jml">...</b> jawaban masuk.`, "ok");
         soalJumlah(r, r.formId);
